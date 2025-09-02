@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Serviços de RPG digital, tokens animados, cenários interativos e mesas de RPG comissionadas no Foundry VTT">
+  <meta name="keywords" content="RPG, Foundry VTT, D&D, mesas online, tokens animados, cenários interativos">
+  <title>Pergaminhos Digitais & Mago de Aventuras</title>
+  <style>
+    :root{
+      --bg:#0b0f16;--card:#101725;--muted:#8aa0be;--text:#e7edf7;--brand:#7c5cff;--brand-2:#00ffc6;--ring:rgba(124,92,255,.25)
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,"Noto Sans",sans-serif;min-height:100vh}
+    a{color:inherit;text-decoration:none;cursor:pointer}
+    .container{max-width:1180px;margin:0 auto;padding:0 20px}
+    header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg, rgba(11,15,22,.95), rgba(11,15,22,.75));backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;padding:10px 20px}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.4px}
+    .logo-icon{width:36px;height:36px;cursor:pointer;transition:transform .25s ease}
+    .logo-icon:hover{transform:translateY(-1px) scale(1.05)}
+    .menu{display:flex;gap:18px;align-items:center}
+    .menu a{font-size:14px;color:var(--muted);cursor:pointer;transition:color .25s ease}
+    .menu a:hover{color:var(--text)}
+    .btn{display:inline-flex;gap:10px;align-items:center;border:1px solid rgba(255,255,255,.12);padding:10px 14px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));box-shadow:0 0 0 0 var(--ring);transition:.25s ease, box-shadow .5s ease-in-out}
+    .btn:hover{transform:translateY(-1px) scale(1.03);box-shadow:0 0 12px 2px var(--ring);border-color:rgba(255,255,255,.2)}
+    .btn.primary{background:linear-gradient(180deg,var(--brand),#5b44ff);border-color:rgba(0,0,0,.15)}
+    .hero{padding:80px 0 40px;text-align:center;position:relative;overflow:hidden}
+    .hero h1{font-size:42px;line-height:1.1;margin:0 0 10px}
+    .grid{display:grid;gap:18px}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:40px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px;text-align:left;transition:transform .25s ease, box-shadow .5s ease-in-out}
+    .card:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 0 16px 4px var(--ring)}
+    .card h3{margin:0 0 12px;font-size:20px}
+    .muted{color:var(--muted)}
+    footer{padding:36px 0;border-top:1px solid rgba(255,255,255,.08);color:var(--muted);text-align:center}
+    .section{display:none}
+    .section.active{display:block}
+    .loading{opacity:0;animation:fadeIn 0.5s ease-in-out forwards}
+    @keyframes fadeIn{
+      to{opacity:1}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- Ícone de pergaminho estilizado com runas -->
+    <svg class="logo-icon" onclick="showSection('hub')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="var(--brand)" stroke-width="2">
+      <title>Voltar à página inicial</title>
+      <path d="M16 8h32v48H16z" fill="rgba(124,92,255,0.1)"/>
+      <path d="M20 12h24v40H20z" stroke="var(--brand-2)"/>
+      <!-- Runas estilizadas -->
+      <text x="24" y="22" font-size="6" fill="var(--text)">ᚱ ✧ ☉</text>
+      <text x="24" y="30" font-size="6" fill="var(--text)">ᛟ ᚠ ✦</text>
+      <text x="24" y="38" font-size="6" fill="var(--text)">✧ ᚲ ☉</text>
+    </svg>
+    <div class="brand" aria-label="Pergaminhos Digitais">
+      <span>Pergaminhos Digitais</span>
+    </div>
+    <nav class="menu">
+      <a onclick="showSection('pergaminhos')">Serviços</a>
+      <a onclick="showSection('mago')">Mago de Aventuras</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HUB / LANDING PAGE -->
+    <section id="hub" class="section active">
+      <div class="hero">
+        <div class="container">
+          <h1>Bem-vindo aos Pergaminhos Digitais</h1>
+          <p class="muted">Transforme suas aventuras de RPG em experiências épicas e inesquecíveis</p>
+        </div>
+      </div>
+      
+      <!-- CARDS DE NAVEGAÇÃO PARA SERVIÇOS -->
+      <div class="container" style="margin-top:40px">
+        <div class="cards" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px">
+          <div class="card" onclick="showSection('pergaminhos')" style="cursor:pointer">
+            <h3>Pergaminhos Digitais</h3>
+            <p><strong>Serviços profissionais para RPG digital</strong><br><br>
+            • Tokens e Portraits Animados<br>
+            • Pergaminhos de Imersão<br>
+            • Cenários Interativos<br><br>
+            <em>Clique aqui para conhecer todos os serviços!</em></p>
+          </div>
+          <div class="card" onclick="showSection('mago')" style="cursor:pointer">
+            <h3>Mago de Aventuras</h3>
+            <p><strong>Mesas de RPG Comissionadas</strong><br><br>
+            • Experiência profissional no Foundry VTT<br>
+            • Narrativa envolvente e recursos audiovisuais<br>
+            • Customização digital de sua mesa do Foundry<br><br>
+            <em>Clique aqui para reservar sua vaga!</em></p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- RELATOS DOS AVENTUREIROS (somente no HUB) -->
+      <div class="container" style="margin-top:60px">
+        <h2>Relatos dos Aventureiros</h2>
+        <div class="cards" style="grid-template-columns:1fr;gap:28px">
+          <div class="card">
+            <h3>Isera Windguard</h3>
+            <p>"Entrar na cidade foi como atravessar um portal para outro mundo. Cada detalhe parecia vivo, e cada decisão que tomamos importava."</p>
+          </div>
+          <div class="card">
+            <h3>Zarek Stormeclay</h3>
+            <p>"As runas brilharam diante de mim e percebi que estávamos diante de algo maior. A magia nunca foi tão real."</p>
+          </div>
+          <div class="card">
+            <h3>Galahad Aurelliun</h3>
+            <p>"A investigação nos levou a segredos antigos. Senti que cada sala escondia um novo mistério esperando para ser revelado."</p>
+          </div>
+        </div>
+        <div style='text-align:center;margin-top:30px'>
+          <a href="https://instagram.com/magodeaventura" target="_blank" class="btn" style="font-size:14px;padding:10px 18px;border-radius:10px;display:inline-block;margin-bottom:15px;display:block">📸 Grimório de Aventuras</a>
+          <a href="https://wa.me/5531988434277" target="_blank" class="btn primary" style="font-size:14px;padding:10px 18px;border-radius:10px;display:inline-block">Entre em contato comigo</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUBPAGE: PERGAMINHOS DIGITAIS -->
+    <section id="pergaminhos" class="section" style="padding:60px 20px">
+      <div class="container">
+        <h2>Pergaminhos Digitais</h2>
+        <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px">
+          <div class="card">
+            <h3>Tokens & Portraits Animados</h3>
+            <p><strong>Retratos que respiram magia</strong>.<br><br>
+            <ul>
+              <li>Identidade única para seu herói ou vilão;</li>
+              <li>Encante a sua mesa;</li>
+              <li>Aventuras inesquecíveis.</li>
+            </ul>
+            <br>
+            <div style='margin-top:20px'><em>Desperte aqui o poder dos seus personagens!</em></div>
+          </div>
+          <div class="card">
+            <h3>Imersão</h3>
+            <p><strong>Transforme sua sessão em cinema interativo</strong>.<br><br>
+            <ul>
+              <li>Personalize ataques e magias;</li>
+              <li>Cenas épicas digitalizadas;</li>
+              <li>Voz e vida para seu personagem.</li>
+            </ul>
+            <br>
+            <div style='margin-top:20px'><em>Eleve o nível de sua mesa — traga a imersão para sua campanha!</em></div>
+          </div>
+          <div class="card">
+            <h3>Cenários Interativos</h3>
+            <p><strong>Seu cenário vivo e ao alcance dos jogadores</strong>.<br><br>
+            <ul>
+              <li>Mapas de FVTT animados;</li>
+              <li>Exploração interativa;</li>
+              <li>Cenas personalizadas.</li>
+            </ul>
+            <br>
+            <div style='margin-top:20px'><em>Dê vida ao seu mundo — invoque já seus cenários interativos!</em></div>
+          </div>
+        </div>
+        <div style='text-align:center;margin-top:40px'>
+          <a href="https://wa.me/5531988434277" target="_blank" class="btn primary">Solicitar Orçamento</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUBPAGE: MAGO DE AVENTURAS -->
+    <section id="mago" class="section" style="padding:60px 20px">
+      <div class="container">
+        <h2>Mago de Aventuras</h2>
+        <div class="hero" style="text-align:center">
+          <h1>Mesas de RPG Comissionadas</h1>
+          <p>Experiência profissional no <strong>Foundry VTT</strong>, com narrativa envolvente, recursos audiovisuais e total imersão.<br><br>
+          <em>Escolha seu destino e embarque agora na próxima grande jornada.</em></p>
+        </div>
+        
+        <div class="cards" style="margin-top:30px">
+          <div class="card">
+            <h3>🎮 Customização Digital de sua Mesa do Foundry</h3>
+            <p><strong>Transforme sua mesa em uma experiência única e personalizada</strong><br><br>
+            • <strong>Automação avançada:</strong> Macros e sistemas automatizados para agilizar o jogo<br>
+            • <strong>Recursos interativos:</strong> Elementos dinâmicos que respondem às ações dos jogadores<br>
+            • <strong>Ambientação imersiva:</strong> Cenários, sons e efeitos visuais sob medida para sua campanha<br><br>
+            <em>Eleve sua mesa a um novo patamar — solicite sua customização personalizada!</em></p>
+          </div>
+          <div class="card">
+            <h3>🔮 Invocação de Mesa Épica</h3>
+            <p><strong>Desperte o verdadeiro poder de sua aventura digital</strong><br><br><strong>R$195 no pacote mensal.</strong><br><em>Um investimento justo pela experiência épica que sua campanha merece.</em></p>
+            <p><strong>Sessões semanais com duração média de 3 horas.</strong><br>Horários flexíveis combinados com o grupo.</p>
+            <p><strong>Monte seu grupo ou junte-se a outros heróis prontos para a jornada.</strong><br><em>O próximo capítulo da sua saga começa aqui.</em></p>
+          </div>
+        </div>
+        <div style='text-align:center;margin-top:40px'>
+          <a href="https://wa.me/5531988434277" target="_blank" class="btn primary">Convocar o Mago</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© <span id="y"></span> Pergaminhos Digitais & Mago de Aventuras</div>
+  </footer>
+
+  <script>
+    // Atualiza o ano automaticamente
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Sistema de navegação melhorado
+    const sections = ['hub', 'pergaminhos', 'mago'];
+    
+    function showSection(id) {
+      // Verifica se a seção existe
+      if (!sections.includes(id)) {
+        console.warn(`Seção '${id}' não encontrada`);
+        return;
+      }
+
+      // Remove classe active de todas as seções
+      sections.forEach(sectionId => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.classList.remove('active');
+          element.style.display = 'none';
+        }
+      });
+
+      // Mostra a seção selecionada com animação
+      const targetSection = document.getElementById(id);
+      if (targetSection) {
+        targetSection.style.display = 'block';
+        targetSection.classList.add('active', 'loading');
+        
+        // Remove classe de loading após a animação
+        setTimeout(() => {
+          targetSection.classList.remove('loading');
+        }, 500);
+      }
+
+      // Scroll suave para o topo
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // Inicialização
+    document.addEventListener('DOMContentLoaded', function() {
+      // Garante que apenas o hub seja exibido inicialmente
+      showSection('hub');
+    });
+
+    // Adiciona tratamento de erro global
+    window.addEventListener('error', function(e) {
+      console.error('Erro na página:', e.error);
+    });
+  </script>
+</body>
+</html>
